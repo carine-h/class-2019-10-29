@@ -38,10 +38,36 @@ clean_x%>%
   
   library(moderndive)
 
-y <- tibble(bead = c(rep("Red", 2000), rep("White", 8000)))%>%
-  rep_sample_n(size = 25, replace = TRUE, rep = 10000)
+y <- tibble(bead = c(rep("Red", 2000), rep("White", 8000))) 
+z <- y %>% 
+  rep_sample_n(size = 25, replace = TRUE, rep = 100000)
   
+ a <- z %>% 
+    count(replicate, bead) %>%
+    spread(bead, n) %>%
+     mutate(red_prop = Red/(Red+White))
+ 
+ summary(a)
+ 
+ 
   
+ ggplot(a, aes(x = red_prop))+
+  geom_histogram()
+  
+
+```
+
+
+```{r}
+
+sheets_deauth()
+train <- read_sheet("1QV7o63fiZdNtMtLQfdwREapf8eYDjpfSRX0dgfNrB8A")
+
+median(train$income)
+
+train %>%
+rep_sample_n(size = 5, reps = 1000) %>%
+  select(replicate, income) 
 
 ```
 
