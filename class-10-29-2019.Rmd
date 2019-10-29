@@ -1,0 +1,47 @@
+---
+title: "class"
+author: "Carine Hajjar"
+date: "10/29/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(googlesheets4)
+library(tidyverse)
+```
+
+red over red+white
+
+```{r}
+sheets_deauth()
+x <- read_sheet("1cgP-e6THVfiW5TJ95QhX3jkNxKvc8Sicp9k_BkSRd2I")
+
+clean_x <- x%>%
+na.omit()%>%
+  mutate(red_prop = red/(red+white))
+
+x_plot <- ggplot(clean_x, aes(x = red_prop))+
+  geom_histogram()
+
+clean_x%>%
+  summarize(prop = sum(red)/(sum(red)+sum(white)))%>%
+  pull()
+
+  x_plot
+# possible data point did happen but overall, very unlikely because of small sample size 
+
+# how can we make this more precise-- see how weird this is
+  
+  library(moderndive)
+
+y <- tibble(bead = c(rep("Red", 2000), rep("White", 8000)))%>%
+  rep_sample_n(size = 25, replace = TRUE, rep = 10000)
+  
+  
+
+```
+
